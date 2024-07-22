@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:12:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/22 16:00:18 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:38:51 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <time.h>
 
 
 typedef struct s_data
@@ -35,9 +36,18 @@ typedef struct s_data
 
 }	t_data;
 
-int	len2d_array(char **s);
-int	str_len(char *s);
-int	validate_flag(t_data *data, char *s);
-int	check_if_flag(char *t);
-
+int			len2d_array(char **s);
+int			str_len(char *s);
+int			validate_flag(t_data *data, char *s);
+int			check_if_flag(char *t);
+char		*str_join(char *s1, char *s2);
+char		*ft_str_dup(char *s);
+int			handle_files(t_data *data, char **av, int prev, int ac);
+void		freeing(char **arr, int len);
+void		sort_strings(char **arr, int (*func)(char *str1, char *str2));
+void		reverse_strings(char **arr);
+int			str_compare_sort(char *str1, char *str2);
+char		*ft_str_dup_len(char *str, int len);
+long long	get_time_created(char *str);
+void		ft_memset(void *ptr, int len);
 #endif

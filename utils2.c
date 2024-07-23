@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:36:58 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/23 12:30:06 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:26:04 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,13 @@ char	*itos(long long numb)
 	}
 	out[i] = 0;
 	return (out);
+}
+
+int	is_dir(char *path)
+{
+	struct stat	file_stat;
+
+	if (lstat(path, &file_stat) != 0)
+		return (-1);
+	return (S_ISDIR(file_stat.st_mode));
 }

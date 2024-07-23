@@ -66,6 +66,8 @@ void	freeing(char **arr, int len)
 {
 	int	i;
 
+	if (!arr)
+		return ;
 	i = 0;
 	if (len == -1)
 		len = 2e9;
@@ -74,4 +76,5 @@ void	freeing(char **arr, int len)
 		free(arr[i]);
 		i++;
 	}
+	free(arr);
 }

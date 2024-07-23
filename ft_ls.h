@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:12:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/23 15:41:51 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:43:54 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ typedef struct s_data
 	int		option_r;
 	int		option_t;
 	int		option_g;
-
+	int		option_ca;
+	int		option_f;
 	char	**files;
 
 }	t_data;
@@ -59,4 +60,8 @@ int			start_ls(t_data *data);
 int			str_time_sort(char *str1, char *str2);
 long long	get_time_created(char *str);
 int			improve_files(char ***files, char *str);
+int			is_dir(char *path);
+int			handle_option_cr(t_data *data, char **files);
+int			handle_arguments(t_data *data, char *str);
+int			get_last_app(char *str, char c);
 #endif

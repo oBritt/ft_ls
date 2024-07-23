@@ -6,11 +6,34 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 16:55:20 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/23 15:43:01 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:52:12 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+void	output_files(t_data *data, char **files)
+{
+	int		i;
+	char	sep[10];
+	int		ind;
+	int		len;
+
+	(void)data;
+	i = 0;
+	sep[0] = ' ';
+	sep[1] = 0;
+	len = len2d_array(files);
+	while (files[i])
+	{
+		ind = get_last_app(files[i], '/');
+		write(1, &files[i][ind + 1], str_len(files[i]) - ind - 1);
+		if (i != len - 1)
+			write(1, &sep, str_len(sep));
+		i++;
+	}
+	write(1, "\n", 1);
+}
 
 int	handle_arguments(t_data *data, char *str)
 {
@@ -24,24 +47,28 @@ int	handle_arguments(t_data *data, char *str)
 		return (freeing(files, -1), 1);
 	if (data->option_t)
 		sort_strings(files, &str_time_sort);
-	else
+	else if (!data->option_f)
 		sort_strings(files, &str_compare_sort);
-	if (data->option_t)
+	if (data->option_r)
 		reverse_strings(files);
-    for (int i = 0; files[i]; i++)
-        printf("%s %lli\n", files[i], get_time_created(files[i]));
-    return (0);
+	output_files(data, files);
+	if (data->option_cr)
+		if (handle_option_cr(data, files))
+			return (freeing(files, -1), 1);
+	freeing(files, -1);
+	return (0);
 }
 
 int	start_ls(t_data *data)
 {
-    if (!data->files)
-    {
-        handle_arguments(data, "./");
-    }
-    else
-    {
-        printf("asd");
-    }
-    return (1);
+	if (!data->files)
+	{
+		if (handle_arguments(data, "./"))
+			return (1);
+	}
+	else
+	{
+		printf("asd");
+	}
+	return (1);
 }

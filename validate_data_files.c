@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 16:13:23 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/22 16:46:13 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:57:52 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	handle_files(t_data *data, char **av, int prev, int ac)
 	if (prev == ac)
 	{
 		data->files = NULL;
-		return (1);
+		return (0);
 	}
 	data->files = malloc((ac - prev + 1) * sizeof(char *));
 	if (!data->files)

@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 16:57:41 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/22 18:35:55 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:46:19 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	str_compare_sort(char *str1, char *str2)
 {
 	int	i;
 
+	i = 0;
 	while (1)
 	{
 		if (str1[i] == str2[i] && str1[i] == 0)
@@ -51,13 +52,13 @@ char	*ft_str_dup_len(char *str, int len)
 
 int	str_time_sort(char *str1, char *str2)
 {
-	char		*temp;
-	int			i;
 	long long	f1;
 	long long	f2;
 
 	f1 = get_time_created(str1);
 	f2 = get_time_created(str2);
+	if (f1 == f2)
+		return (!str_compare_sort(str1, str2));
 	return (f1 > f2);
 }
 

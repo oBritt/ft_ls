@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:18:31 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/22 18:42:08 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:46:34 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ void	get_perm(char *output, mode_t mode)
 {
 	if (S_ISDIR(mode))
 		output[0] = 'd';
-	else if (S_ISDIR(mode))
-		output[0] = 'l';
 	if (mode & S_IRUSR)
 		output[1] = 'r';
 	if (mode & S_IWUSR)
@@ -81,12 +79,24 @@ char	*get_permissions(char *path)
 {
 	char		*output;
 	struct stat	file_stat;
+	struct stat	file_lstat;
 
+	if (stat(path, &file_stat) < 0)
+		return (NULL);
+	if (lstat(path, &file_lstat) < 0)
+		return (NULL);
 	output = malloc(11 * sizeof(char));
 	if (!output)
 		return (NULL);
 	ft_memset(output, 11);
-	stat(path, &file_stat);
-	get_perm(output, file_stat.st_mode);
+	if (S_ISLNK(file_lstat.st_mode))
+	{
+		get_perm(output, file_lstat.st_mode);
+		output[0] = 'l';
+	}
+	else
+	{
+		get_perm(output, file_stat.st_mode);
+	}
 	return (output);
 }

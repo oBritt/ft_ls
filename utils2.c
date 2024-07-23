@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:36:58 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/22 18:38:40 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:30:06 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,48 @@ void	ft_memset(void *ptr, int len)
 		ptr_char[i] = 0;
 		i++;
 	}
+}
+
+int	get_len_int(long long numb)
+{
+	int	len;
+
+	len = 0;
+	while (numb)
+	{
+		numb /= 10;
+		len++;
+	}
+	if (len == 0)
+		len = 1;
+	return (len);
+}
+
+void	fill_arr_int(char *out, long long *numb, int i, int size)
+{
+	if (i < size)
+	{
+		fill_arr_int(out + 1, numb, i + 1, size);
+		*out = (*numb % 10 + '0');
+		*numb /= 10;
+	}
+}
+
+char	*itos(long long numb)
+{
+	int		i;
+	char	*out;
+
+	i = get_len_int(numb);
+	out = malloc((i + 1) * sizeof(char));
+	if (!out)
+		return (NULL);
+	if (numb == 0)
+		out[0] = '0';
+	else
+	{
+		fill_arr_int(out, &numb, 0, i);
+	}
+	out[i] = 0;
+	return (out);
 }

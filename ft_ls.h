@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:12:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/22 18:38:51 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:41:51 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <time.h>
+# include <pwd.h>
+# include <grp.h>
+# include <dirent.h>
 
 
 typedef struct s_data
@@ -50,4 +53,10 @@ int			str_compare_sort(char *str1, char *str2);
 char		*ft_str_dup_len(char *str, int len);
 long long	get_time_created(char *str);
 void		ft_memset(void *ptr, int len);
+char		*itos(long long numb);
+char		**get_files(t_data *data, char *path, long long *blocks);
+int			start_ls(t_data *data);
+int			str_time_sort(char *str1, char *str2);
+long long	get_time_created(char *str);
+int			improve_files(char ***files, char *str);
 #endif

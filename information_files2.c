@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 12:12:07 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/24 11:44:36 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:57:48 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*get_user(char *path)
 	struct passwd	*pwd;
 	char			*out;
 
-	if (stat(path, &file_stat) > 0)
+	if (stat(path, &file_stat) < 0)
 	{
 		return (NULL);
 	}
@@ -48,7 +48,7 @@ char	*get_group(char *path)
 	struct stat		file_stat;
 	char			*out;
 
-	if (stat(path, &file_stat) > 0)
+	if (stat(path, &file_stat) < 0)
 		return (NULL);
 	grp = getgrgid(file_stat.st_gid);
 	if (!grp)
@@ -70,7 +70,6 @@ long long	get_size_numb(char *path)
 
 char	*get_size(char *path)
 {
-
 	char		*out;
 	long long	value;
 

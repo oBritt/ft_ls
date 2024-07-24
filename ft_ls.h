@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:12:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/24 11:48:25 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:18:24 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,22 @@ int			is_valid(t_data *data, char *file);
 void		swap_pointers(char **str1, char **str2);
 int			sort_files(t_data *data, char **files);
 long long	get_size_numb(char *path);
+void		ft_put_nbr(long long n);
+char		*get_files_serial_nbr(char *path);
+char		*get_files_block(char *path);
+char		*get_permissions(char *path);
+char		*get_hard_links(char *path);
+char		*get_user(char *path);
+char		*get_user_numb(char *path);
+char		*get_group_numb(char *path);
+char		*get_group(char *path);
+char		*get_size(char *path);
+char		*get_string_created(char *path);
+char		*get_size_h(char *path);
+void		super_freeing(char ***arr);
+char		**get_addition(char **files, char ***allocated, \
+char *(*operations[])(char *));
+char		*fill_spaces(char *str, int len);
+char		*join_2d_array(char **arr);
+char		**option_addition(t_data *data, char **files);
 #endif

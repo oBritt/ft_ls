@@ -6,20 +6,23 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 16:55:20 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/24 11:42:22 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:33:09 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	output_files(t_data *data, char **files)
+int	output_files(t_data *data, char **files)
 {
 	int		i;
 	char	sep[10];
 	int		ind;
 	int		len;
+	char	**addition;
 
-	(void)data;
+	addition = option_addition(data, files);
+	if (!addition)
+		return (1);
 	i = 0;
 	sep[0] = ' ';
 	sep[1] = 0;
@@ -28,6 +31,8 @@ void	output_files(t_data *data, char **files)
 	{
 		while (files[i])
 		{
+			write(1, addition[i], str_len(addition[i]));
+			free(addition[i]);
 			ind = get_last_app(files[i], '/');
 			write(1, &files[i][ind + 1], str_len(files[i]) - ind - 1);
 			if (i != len - 1)
@@ -36,6 +41,7 @@ void	output_files(t_data *data, char **files)
 		}
 		write(1, "\n", 1);
 	}
+	return (free(addition), 0);
 }
 
 int	handle_arguments(t_data *data, char *str)
@@ -50,7 +56,8 @@ int	handle_arguments(t_data *data, char *str)
 		return (freeing(files, -1), 1);
 	if (sort_files(data, files))
 		return (freeing(files, -1), 1);
-	output_files(data, files);
+	if (output_files(data, files))
+		return (freeing(files, -1), 1);
 	if (data->option_cr)
 		if (handle_option_cr(data, files))
 			return (freeing(files, -1), 1);

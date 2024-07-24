@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:18:31 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/24 12:57:20 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:50:14 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ char	*get_string_created(char *path)
 	if (!temp)
 		return (NULL);
 	output = ft_str_dup_len(temp + 4, 12);
-	free(temp);
 	if (!output)
 		return (NULL);
 	return (output);

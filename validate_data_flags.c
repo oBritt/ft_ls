@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:50:36 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/24 13:07:07 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:01:23 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	add_flag_to_data1(t_data *data, char c)
 		data->option_i = 1;
 	else if (c == 'n')
 		data->option_n = 1;
+	else if (c == 'm')
+		data->option_m = 1;
 	else
 		return (1);
 	return (0);

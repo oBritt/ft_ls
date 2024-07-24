@@ -6,14 +6,16 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 14:11:54 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/24 15:31:06 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:13:12 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int	get_space(char *(*func)(char*))
+int	get_space(char *(*func)(char*), int i)
 {
+	if (i == 0)
+		return (1);
 	if (func == get_hard_links || func == get_group || func == get_group_numb \
 	|| func == get_size_h || func == get_size)
 		return (2);
@@ -26,7 +28,7 @@ int	same_distance(char ***allocated, int max, int i,  char *(*func)(char*))
 	char	*temp; 
 
 	e = 0;
-	max += get_space(func);
+	max += get_space(func, i);
 	while (allocated[e])
 	{
 		temp = fill_spaces(allocated[e][i], max);
@@ -70,27 +72,20 @@ char *(*operations[])(char *))
 	i = 0;
 	while (operations[i])
 	{
-		e = -1;
+		e = 0;
 		max = 0;
-		dprintf(1, "%i", i);
-		while (files[++e])
+		while (files[e])
 		{
 			temp = operations[i](files[e]);
 			if (temp == NULL)
-			{
-				write(1, "Asddas", 4);
 				return (NULL);
-			}
 			if (str_len(temp) > max)
 				max = str_len(temp);
 			allocated[e][i] = temp;
+			e++;
 		}
-		if (i != 0)
-			if (same_distance(allocated, max, i, operations[i]))
-			{
-					write(1, "Asddas", 4);
-				return (NULL);
-			}
+		if (same_distance(allocated, max, i, operations[i]))
+			return (NULL);
 		i++;
 	}
 	return (create_addition(allocated, files));

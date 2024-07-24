@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:12:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/24 15:18:24 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:00:26 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 // s => display how many blocks 
 // h => display in kBytes etc
 // f => not sorted turns on -a
+// m => separated by comma
 
 typedef struct s_data
 {
@@ -58,6 +59,7 @@ typedef struct s_data
 	int		option_cs;
 	int		option_s;
 	int		option_h;
+	int		option_m;
 	char	**files;
 
 }	t_data;
@@ -111,4 +113,5 @@ char *(*operations[])(char *));
 char		*fill_spaces(char *str, int len);
 char		*join_2d_array(char **arr);
 char		**option_addition(t_data *data, char **files);
+void		get_separator(t_data *data, char *sep);
 #endif

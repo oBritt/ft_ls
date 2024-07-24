@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 10:47:45 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/24 13:56:52 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:16:17 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	sort_files(t_data *data, char **files)
 		if (sort_strings(files, &str_compare_sort))
 			return (1);
 	}
-	if (data->option_r)
+	if (data->option_r && !data->option_f)
 		reverse_strings(files);
 	return (0);
 }

@@ -6,28 +6,16 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 16:55:20 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/24 16:18:29 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 18:42:41 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	output_addition(char **addition, int i)
-{
-	int	len;
-
-	len = str_len(addition[i]);
-	write(1, addition[i], len);
-	if (len)
-		write(1, " ", 1);
-	free(addition[i]);
-}
-
 int	output_files(t_data *data, char **files)
 {
 	int		i;
 	char	sep[10];
-	int		ind;
 	int		len;
 	char	**addition;
 
@@ -42,10 +30,7 @@ int	output_files(t_data *data, char **files)
 		while (files[i])
 		{
 			output_addition(addition, i);
-			ind = get_last_app(files[i], '/');
-			write(1, &files[i][ind + 1], str_len(files[i]) - ind - 1);
-			if (i != len - 1)
-				write(1, &sep, str_len(sep));
+			output_file(files, i, len, sep);
 			i++;
 		}
 		write(1, "\n", 1);
@@ -58,6 +43,7 @@ int	handle_arguments(t_data *data, char *str)
 	long long	blocks;
 	char		**files;
 
+	blocks = 0;
 	files = get_files(data, str, &blocks);
 	if (!files)
 		return (1);
@@ -65,7 +51,8 @@ int	handle_arguments(t_data *data, char *str)
 		return (freeing(files, -1), 1);
 	if (sort_files(data, files))
 		return (freeing(files, -1), 1);
-	print_total();
+	if (files[0] != NULL)
+		print_total(data, blocks);
 	if (output_files(data, files))
 		return (freeing(files, -1), 1);
 	if (data->option_cr)
@@ -73,6 +60,41 @@ int	handle_arguments(t_data *data, char *str)
 			return (freeing(files, -1), 1);
 	freeing(files, -1);
 	return (0);
+}
+
+int	handle_dirs(t_data *data, char **dirs, int files)
+{
+	int	i;
+
+	i = 0;
+	while (dirs[i])
+	{
+		if (!(dirs[1] == NULL && files == 0))
+		{
+			if (!(i == 0 && files == 0))
+				write(1, "\n", 1);
+			write(1, dirs[i], str_len(dirs[i]) - 1);
+			write(1, ":\n", 2);
+		}
+		if (handle_arguments(data, dirs[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	handle_args(t_data *data, char **files, char **dirs)
+{
+
+	if (sort_files(data, files))
+		return (freeing(files, -1), freeing(dirs, -1), 1);
+	if (sort_files(data, dirs))
+		return (freeing(files, -1), freeing(dirs, -1), 1);
+	if (output_files_arg(data, files))
+		return (freeing(files, -1), freeing(dirs, -1), 1);
+	if (handle_dirs(data, dirs, len2d_array(files)))
+		return (freeing(files, -1), freeing(dirs, -1), 1);
+	return (freeing(files, -1), freeing(dirs, -1), 0);
 }
 
 int	start_ls(t_data *data)
@@ -88,9 +110,13 @@ int	start_ls(t_data *data)
 	else
 	{
 		files = get_files_dirs(data->files, 0);
+		if (!files)
+			return (1);
 		dirs = get_files_dirs(data->files, 1);
-		(void)files;
-		(void)dirs;
+		if (!dirs)
+			return (freeing(dirs, -1), 1);
+		if (handle_args(data, files, dirs))
+			return (1);
 	}
 	return (0);
 }

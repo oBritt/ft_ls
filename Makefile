@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror 
 
 SRCS = $(wildcard *.c)
 

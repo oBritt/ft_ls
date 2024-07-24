@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 10:47:45 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/24 16:16:17 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:11:32 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	sort_by_size(char *str1, char *str2)
 		str_compare_sort(str1, str2);
 	return (size2 > size1);
 }
-
 
 int	sort_files(t_data *data, char **files)
 {

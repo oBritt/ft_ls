@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 14:11:54 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/24 16:13:12 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:12:05 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 int	get_space(char *(*func)(char*), int i)
 {
 	if (i == 0)
-		return (1);
+		return (0);
 	if (func == get_hard_links || func == get_group || func == get_group_numb \
 	|| func == get_size_h || func == get_size)
 		return (2);
 	return (1);
 }
 
-int	same_distance(char ***allocated, int max, int i,  char *(*func)(char*))
+int	same_distance(char ***allocated, int max, int i, char *(*func)(char*))
 {
 	int		e;
-	char	*temp; 
+	char	*temp;
 
 	e = 0;
 	max += get_space(func, i);

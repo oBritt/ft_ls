@@ -6,11 +6,9 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:12:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/24 16:00:26 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 18:42:59 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef FT_LS_H
 # define FT_LS_H
@@ -24,7 +22,6 @@
 # include <pwd.h>
 # include <grp.h>
 # include <dirent.h>
-
 
 // l => basic
 // r => reversed
@@ -114,4 +111,9 @@ char		*fill_spaces(char *str, int len);
 char		*join_2d_array(char **arr);
 char		**option_addition(t_data *data, char **files);
 void		get_separator(t_data *data, char *sep);
+void		print_total(t_data *data, long long blocks);
+void		output_addition(char **addition, int i);
+void		output_file(char **files, int i, int len, char *sep);
+int			output_files_arg(t_data *data, char **files);
+void		improv_files(char **files);
 #endif

@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 19:07:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/24 09:45:47 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 18:40:50 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,21 @@ int	get_amount_of_dirs(char **files, int find)
 
 static int	helper_get_dirs(char **dirs, char **files, int i, int *counter)
 {
-	dirs[*counter] = str_join(files[i], "/");
-	if (!dirs[*counter])
-		return (freeing(dirs, *counter), 1);
+	int	len;
+
+	len = str_len(files[i]);
+	if (files[i][len - 1] != '/')
+	{
+		dirs[*counter] = str_join(files[i], "/");
+		if (!dirs[*counter])
+			return (freeing(dirs, *counter), 1);
+	}
+	else
+	{
+		dirs[*counter] = ft_str_dup(files[i]);
+		if (!dirs[*counter])
+			return (freeing(dirs, *counter), 1);
+	}
 	*counter = *counter +1;
 	return (0);
 }

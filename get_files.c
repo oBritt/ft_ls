@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 13:49:45 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/24 10:46:01 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:12:22 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	get_blocks(char *path, char *name, long long *blocks)
 	if (lstat(full_path, &file_stat) < 0)
 		return (free(full_path), 1);
 	free(full_path);
-	*blocks += file_stat.st_blocks;
+	*blocks += (long long)file_stat.st_blocks;
 	return (0);
 }
 
@@ -88,7 +88,7 @@ char	**get_files(t_data *data, char *path, long long *blocks)
 	char			**arr;
 	int				counter;
 
-	counter = amount_of_files(data, path, 0,  blocks);
+	counter = amount_of_files(data, path, 0, blocks);
 	if (counter == -1)
 		return (NULL);
 	arr = malloc((counter + 1) * sizeof(char *));

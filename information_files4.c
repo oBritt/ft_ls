@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 13:14:24 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/24 13:57:14 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:12:08 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@ static char	get_char(int t)
 static void	handle_3(char *output, long long numb, int c)
 {
 	output[0] = ' ';
-	output[1] = numb / 100;
-	output[2] = numb / 10 % 10;
+	output[1] = numb / 100 + '0';
+	output[2] = numb / 10 % 10 + '0';
 	output[3] = get_char(c);
 	output[4] = 0;
 }
 
 static void	handle_4(char *output, long long numb, int c)
 {
-	output[0] = numb / 1000;
-	output[1] = numb / 100 % 10 ;
-	output[2] = numb / 10 % 10;
+	output[0] = numb / 1000 + '0';
+	output[1] = numb / 100 % 10 + '0';
+	output[2] = numb / 10 % 10 + '0';
 	output[3] = get_char(c);
 	output[4] = 0;
 }
@@ -56,9 +56,9 @@ static char	*handle_size_h(long long numb)
 	}
 	if (numb < 100)
 	{
-		output[0] = numb / 10;
+		output[0] = numb / 10 + '0';
 		output[1] = '.';
-		output[2] = numb % 10;
+		output[2] = numb % 10 + '0';
 		output[3] = get_char(counter);
 		output[4] = 0;
 	}

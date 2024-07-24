@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:12:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/23 19:43:54 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 11:48:25 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,22 @@
 # include <dirent.h>
 
 
+// l => basic
+// r => reversed
+// t => sorted by time
+// R => recursively opens all of the dirs
+// a => shows also files which starts with dot
+
+// A => shows everything except . and ..
+// g => l but no owner
+// 1 => each is in separate line
+// i =>  serial number
+// n => makes group and user numbers -l
+// S => sorts by size
+// s => display how many blocks 
+// h => display in kBytes etc
+// f => not sorted turns on -a
+
 typedef struct s_data
 {
 	int		option_cr;
@@ -36,6 +52,12 @@ typedef struct s_data
 	int		option_g;
 	int		option_ca;
 	int		option_f;
+	int		option_1;
+	int		option_i;
+	int		option_n;
+	int		option_cs;
+	int		option_s;
+	int		option_h;
 	char	**files;
 
 }	t_data;
@@ -48,7 +70,7 @@ char		*str_join(char *s1, char *s2);
 char		*ft_str_dup(char *s);
 int			handle_files(t_data *data, char **av, int prev, int ac);
 void		freeing(char **arr, int len);
-void		sort_strings(char **arr, int (*func)(char *str1, char *str2));
+int			sort_strings(char **arr, int (*func)(char *str1, char *str2));
 void		reverse_strings(char **arr);
 int			str_compare_sort(char *str1, char *str2);
 char		*ft_str_dup_len(char *str, int len);
@@ -64,4 +86,11 @@ int			is_dir(char *path);
 int			handle_option_cr(t_data *data, char **files);
 int			handle_arguments(t_data *data, char *str);
 int			get_last_app(char *str, char c);
+char		**get_files_dirs(char **files, int find);
+int			same_strings(char *str1, char *str2);
+int			get_prev_last_app(char *str, char c);
+int			is_valid(t_data *data, char *file);
+void		swap_pointers(char **str1, char **str2);
+int			sort_files(t_data *data, char **files);
+long long	get_size_numb(char *path);
 #endif

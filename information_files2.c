@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 12:12:07 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/23 12:46:45 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 11:44:36 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,25 @@ char	*get_group(char *path)
 	return (out);
 }
 
-char	*get_size(char *path)
+long long	get_size_numb(char *path)
 {
 	struct stat	file_stat;
-	char		*out;
 
-	if (stat(path, &file_stat) > 0)
+	if (stat(path, &file_stat) < 0)
+		return (-1);
+	return ((long long)file_stat.st_size);
+}
+
+char	*get_size(char *path)
+{
+
+	char		*out;
+	long long	value;
+
+	value = get_size_numb(path);
+	if (value == -1)
 		return (NULL);
-	out = itos((long long)file_stat.st_size);
+	out = itos(value);
 	if (!out)
 		return (NULL);
 	return (out);

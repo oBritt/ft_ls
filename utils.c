@@ -59,6 +59,7 @@ char	*ft_str_dup(char *s)
 		out[i] = s[i];
 		i++;
 	}
+	out[i] = 0;
 	return (out);
 }
 

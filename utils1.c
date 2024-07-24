@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 16:57:41 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/23 15:46:19 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 11:54:52 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,19 @@ int	str_time_sort(char *str1, char *str2)
 
 	f1 = get_time_created(str1);
 	f2 = get_time_created(str2);
+	if (f1 == -1 || f2 == -1)
+		return (-1);
 	if (f1 == f2)
 		return (!str_compare_sort(str1, str2));
 	return (f1 > f2);
 }
 
-void	sort_strings(char **arr, int (*func)(char *str1, char *str2))
+int	sort_strings(char **arr, int (*func)(char *str1, char *str2))
 {
 	int		len;
 	int		i;
 	int		e;
-	char	*temp;
+	int		t;
 
 	len = len2d_array(arr);
 	i = 0;
@@ -76,16 +78,16 @@ void	sort_strings(char **arr, int (*func)(char *str1, char *str2))
 		e = 0;
 		while (e < len - 1)
 		{
-			if (func(arr[e], arr[e + 1]))
-			{
-				temp = arr[e];
-				arr[e] = arr[e + 1];
-				arr[e + 1] = temp;
-			}
+			t = func(arr[e], arr[e + 1]);
+			if (t == -1)
+				return (1);
+			if (t == 1)
+				swap_pointers(&arr[e], &arr[e + 1]);
 			e++;
 		}
 		i++;
 	}
+	return (0);
 }
 
 void	reverse_strings(char **arr)

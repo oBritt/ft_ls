@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:18:31 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/23 12:46:34 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 11:19:59 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ long long	get_time_created(char *str)
 {
 	struct stat	file_stat;
 
-	stat(str, &file_stat);
+	if (stat(str, &file_stat) < 0)
+		return (-1);
 	return ((long long)file_stat.st_mtime);
 }
 
@@ -27,6 +28,8 @@ char	*get_string_created(char *path)
 	char		*temp;
 
 	created_time = (time_t)get_time_created(path);
+	if (created_time == -1)
+		return (NULL);
 	temp = ctime(&created_time);
 	if (!temp)
 		return (NULL);

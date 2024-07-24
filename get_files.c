@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 13:49:45 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/23 15:34:37 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 10:46:01 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	get_blocks(char *path, char *name, long long *blocks)
 		return (1);
 	if (lstat(full_path, &file_stat) < 0)
 		return (free(full_path), 1);
+	free(full_path);
 	*blocks += file_stat.st_blocks;
 	return (0);
 }
@@ -39,7 +40,7 @@ int	amount_of_files(t_data *data, char *path, int counter, long long *blocks)
 		entry = readdir(dir);
 		if (!entry)
 			break ;
-		if (entry->d_name[0] != '.' || data->option_a)
+		if (is_valid(data, entry->d_name))
 		{
 			if (get_blocks(path, entry->d_name, blocks))
 			{
@@ -66,7 +67,7 @@ static int	helper_files(t_data *data, char *path, char **arr, int counter)
 		entry = readdir(dir);
 		if (!entry)
 			break ;
-		if (entry->d_name[0] != '.' || data->option_a)
+		if (is_valid(data, entry->d_name))
 		{
 			arr[counter] = ft_str_dup(entry->d_name);
 			if (!arr[counter])

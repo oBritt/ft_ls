@@ -6,13 +6,13 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 19:07:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/23 20:00:59 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/24 09:45:47 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int	get_amount_of_dirs(char **files)
+int	get_amount_of_dirs(char **files, int find)
 {
 	int	i;
 	int	counter;
@@ -25,7 +25,7 @@ int	get_amount_of_dirs(char **files)
 		temp = is_dir(files[i]);
 		if (temp == -1)
 			return (-1);
-		else if (temp == 1)
+		else if (temp == find)
 			counter++;
 		i++;
 	}
@@ -49,7 +49,7 @@ char	**get_files_dirs(char **files, int find)
 	int		temp;
 	int		counter;
 
-	len = get_amount_of_dirs(files);
+	len = get_amount_of_dirs(files, find);
 	if (len == -1)
 		return (NULL);
 	dirs = malloc((len + 1) * sizeof(char *));
@@ -81,11 +81,15 @@ int	handle_option_cr(t_data *data, char **files)
 	i = 0;
 	while (dirs[i])
 	{
-		write(1, "\n", 1);
-		write(1, dirs[i], str_len(dirs[i]) - 1);
-		write(1, ":\n", 2);
-		if (handle_arguments(data, dirs[i]))
-			return (freeing(dirs, -1), 1);
+		if (!same_strings(dirs[i] + get_prev_last_app(dirs[i], '/') + 1, "./") \
+		&& !same_strings(dirs[i] + get_prev_last_app(dirs[i], '/') + 1, "../"))
+		{
+			write(1, "\n", 1);
+			write(1, dirs[i], str_len(dirs[i]) - 1);
+			write(1, ":\n", 2);
+			if (handle_arguments(data, dirs[i]))
+				return (freeing(dirs, -1), 1);
+		}
 		i++;
 	}
 	freeing(dirs, -1);

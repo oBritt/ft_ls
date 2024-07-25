@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 16:55:20 by obrittne          #+#    #+#             */
-/*   Updated: 2024/07/24 18:42:41 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/07/25 12:30:50 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	handle_dirs(t_data *data, char **dirs, int files)
 
 int	handle_args(t_data *data, char **files, char **dirs)
 {
-
 	if (sort_files(data, files))
 		return (freeing(files, -1), freeing(dirs, -1), 1);
 	if (sort_files(data, dirs))
